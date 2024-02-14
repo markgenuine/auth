@@ -8,7 +8,7 @@ import "google/protobuf/wrappers.proto";
 
 option go_package="github.com/markgenuine/auth/pkg/auth_v1;auth_v1";
 
-service AuthV1 {
+service UserV1 {
   rpc Create(CreateRequest) returns (CreateResponse);
   rpc Get(GetRequest) returns (GetResponse);
   rpc Update(UpdateRequest) returns (google.protobuf.Empty);

@@ -9,8 +9,7 @@ import (
 )
 
 // Update user of ID
-func (s *Auth) Update(ctx context.Context, request *desc.UpdateRequest) (*empty.Empty, error) {
-	_ = ctx
+func (s *User) Update(_ context.Context, request *desc.UpdateRequest) (*empty.Empty, error) {
 	fmt.Printf("Update user with ID: %d", request.GetId())
 
 	return &empty.Empty{}, nil

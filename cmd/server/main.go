@@ -22,7 +22,7 @@ func main() {
 
 	s := grpc.NewServer()
 	reflection.Register(s)
-	desc.RegisterAuthV1Server(s, auth_v1.NewAuth())
+	desc.RegisterUserV1Server(s, auth_v1.NewUserService())
 
 	log.Printf("server listening at %v", lis.Addr())
 

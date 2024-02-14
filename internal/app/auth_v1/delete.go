@@ -9,8 +9,7 @@ import (
 )
 
 // Delete user from auth-service
-func (s *Auth) Delete(ctx context.Context, request *desc.DeleteRequest) (*empty.Empty, error) {
-	_ = ctx
+func (s *User) Delete(_ context.Context, request *desc.DeleteRequest) (*empty.Empty, error) {
 	fmt.Printf("User delete with ID: %d", request.GetId())
 
 	return &empty.Empty{}, nil

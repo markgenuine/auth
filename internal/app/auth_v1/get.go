@@ -10,8 +10,7 @@ import (
 )
 
 // Get user of ID
-func (s *Auth) Get(ctx context.Context, request *desc.GetRequest) (*desc.GetResponse, error) {
-	_ = ctx
+func (s *User) Get(_ context.Context, request *desc.GetRequest) (*desc.GetResponse, error) {
 	fmt.Printf("Get user with ID: %d", request.GetId())
 
 	return &desc.GetResponse{

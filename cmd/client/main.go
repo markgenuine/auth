@@ -22,14 +22,14 @@ func main() {
 		log.Fatalf("failed connect to server: %v", err)
 	}
 
-	defer func(conn *grpc.ClientConn) {
+	defer func() {
 		err = conn.Close()
 		if err != nil {
 			log.Fatalf("failed close connect: %v", err)
 		}
-	}(conn)
+	}()
 
-	c := desc.NewAuthV1Client(conn)
+	c := desc.NewUserV1Client(conn)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
@@ -47,7 +47,7 @@ func main() {
 		},
 	)
 	if err != nil {
-		log.Fatalf("failed create user: %v", err)
+		log.Printf("failed create user: %v", err)
 	}
 
 	fmt.Printf("Create user: %d", newUser.GetId())
