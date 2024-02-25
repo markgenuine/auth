@@ -3,22 +3,33 @@ package auth_v1
 import (
 	"context"
 	"fmt"
+	"log"
 
-	"github.com/brianvoe/gofakeit"
+	"github.com/Masterminds/squirrel"
 	desc "github.com/markgenuine/auth/pkg/auth_v1"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // Get user of ID
-func (s *User) Get(_ context.Context, request *desc.GetRequest) (*desc.GetResponse, error) {
-	fmt.Printf("Get user with ID: %d", request.GetId())
+func (s *User) Get(ctx context.Context, req *desc.GetRequest) (*desc.GetResponse, error) {
+	fmt.Printf("Get user with ID: %d", req.GetId())
 
-	return &desc.GetResponse{
-		Id:        request.GetId(),
-		Name:      gofakeit.Name(),
-		Email:     gofakeit.Email(),
-		Role:      0,
-		CreatedAt: timestamppb.New(gofakeit.Date()),
-		UpdatedAt: timestamppb.New(gofakeit.Date()),
-	}, nil
+	query, args, err := s.sq.Select(
+		UsersID, UsersName, UsersEmail, UsersPassword, UsersPasswordConfirm,
+		UsersRole, UsersCreatedAt, UsersUpdatedAt).
+		Where(squirrel.Eq{UsersID: req.GetId()}).
+		ToSql()
+	
+	if err != nil {
+		log.Printf("failed to build query get user: %s", err.Error())
+		return nil, err
+	}
+
+	var res *desc.GetResponse
+	err = s.poolDB.QueryRow(ctx, query, args...).Scan(res)
+	if err != nil {
+		log.Printf("failed to get user: %s", err.Error())
+		return nil, err
+	}
+
+	return res, nil
 }
