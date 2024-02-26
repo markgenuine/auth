@@ -7,32 +7,14 @@ import (
 )
 
 const (
-	// Users ...
-	Users = "users"
-
-	// UsersID ...
-	UsersID = "id"
-
-	// UsersName ...
-	UsersName = "name"
-
-	// UsersEmail ...
-	UsersEmail = "email"
-
-	// UsersPassword ...
-	UsersPassword = "password"
-
-	// UsersPasswordConfirm ...
-	UsersPasswordConfirm = "password_confirm"
-
-	// UsersRole ...
-	UsersRole = "role"
-
-	// UsersCreatedAt ...
-	UsersCreatedAt = "created_at"
-
-	// UsersUpdatedAt ...
-	UsersUpdatedAt = "updated_at"
+	users          = "users"
+	usersID        = "id"
+	usersName      = "name"
+	usersEmail     = "email"
+	usersPassword  = "password"
+	usersRole      = "role"
+	usersCreatedAt = "created_at"
+	usersUpdatedAt = "updated_at"
 )
 
 // User - type for proto implementation

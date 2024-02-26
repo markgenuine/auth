@@ -15,26 +15,26 @@ import (
 func (s *User) Update(ctx context.Context, req *desc.UpdateRequest) (*empty.Empty, error) {
 	fmt.Printf("Update user with ID: %d", req.GetId())
 
-	builder := s.sq.Update(Users).Where(squirrel.Eq{UsersID: req.GetId()})
+	builder := s.sq.Update(users).Where(squirrel.Eq{usersID: req.GetId()})
 
 	var modify bool
 	if req.GetName() != nil {
-		builder.Set(UsersName, req.GetName())
+		builder.Set(usersName, req.GetName())
 		modify = true
 	}
 
 	if req.GetEmail() != nil {
-		builder.Set(UsersEmail, req.GetEmail())
+		builder.Set(usersEmail, req.GetEmail())
 		modify = true
 	}
 
 	if req.GetRole() != desc.Role_UNKNOWN {
-		builder.Set(UsersRole, req.GetRole().String())
+		builder.Set(usersRole, req.GetRole().String())
 		modify = true
 	}
 
 	if modify {
-		builder.Set(UsersUpdatedAt, time.Now())
+		builder.Set(usersUpdatedAt, time.Now())
 		query, args, err := builder.ToSql()
 		if err != nil {
 			log.Printf("failed to build query update user: %s", err.Error())

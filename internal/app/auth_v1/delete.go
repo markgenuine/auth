@@ -14,8 +14,8 @@ import (
 func (s *User) Delete(ctx context.Context, req *desc.DeleteRequest) (*empty.Empty, error) {
 	fmt.Printf("User delete with ID: %d", req.GetId())
 
-	query, args, err := s.sq.Delete(Users).Where(squirrel.Eq{
-		UsersID: req.GetId(),
+	query, args, err := s.sq.Delete(users).Where(squirrel.Eq{
+		usersID: req.GetId(),
 	}).ToSql()
 
 	if err != nil {

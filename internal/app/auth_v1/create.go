@@ -14,10 +14,10 @@ func (s *User) Create(ctx context.Context, req *desc.CreateRequest) (*desc.Creat
 	fmt.Printf("Create User email: %s", req.GetEmail())
 	fmt.Printf("Create User role: %s", req.GetRole())
 
-	query, args, err := s.sq.Insert(Users).
-		Columns(UsersName, UsersEmail, UsersPassword, UsersPasswordConfirm, UsersRole).
-		Values(req.GetName(), req.GetEmail(), req.GetPassword(), req.GetPasswordConfirm(), req.GetRole()).
-		Suffix(fmt.Sprintf("RETURNING %s", UsersID)).ToSql()
+	query, args, err := s.sq.Insert(users).
+		Columns(usersName, usersEmail, usersPassword, usersRole).
+		Values(req.GetName(), req.GetEmail(), req.GetPassword(), req.GetRole()).
+		Suffix(fmt.Sprintf("RETURNING %s", usersID)).ToSql()
 
 	if err != nil {
 		log.Printf("failed to build query create user: %s", err.Error())
