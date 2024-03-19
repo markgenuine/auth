@@ -1,7 +1,7 @@
 -- +goose Up
 -- +goose StatementBegin
 create table if not exists users(
-    id serial primary key,
+    id bigserial primary key,
     name text not null,
     email text not null,
     password text not null,
