@@ -1,4 +1,4 @@
-package auth_v1
+package authService
 
 import (
 	"github.com/markgenuine/auth/internal/client/db"
