@@ -7,21 +7,10 @@ import (
 
 	"github.com/markgenuine/auth/internal/converter"
 	"github.com/markgenuine/auth/internal/model"
-	modelrepo "github.com/markgenuine/auth/internal/repository/auth/model"
 )
 
 func (s *service) Get(ctx context.Context, id int64) (*model.User, error) {
-	var user *modelrepo.User
-	err := s.txManager.ReadCommitted(ctx, func(ctx context.Context) error {
-		var errTx error
-		user, errTx = s.userRepository.Get(ctx, id)
-		if errTx != nil {
-			return errTx
-		}
-
-		return nil
-	})
-
+	user, err := s.userRepository.Get(ctx, id)
 	if err != nil {
 		log.Print(err)
 		return nil, errors.New("failed get user by id")

@@ -2,7 +2,6 @@ package auth
 
 import (
 	"context"
-	"log"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/markgenuine/auth/internal/converter"
@@ -15,8 +14,6 @@ func (s *Implementation) Update(ctx context.Context, request *desc.UpdateRequest
 	if err != nil {
 		return nil, err
 	}
-
-	log.Printf("updated user with id: %d", request.GetId())
 
 	return &empty.Empty{}, nil
 }
