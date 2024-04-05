@@ -41,8 +41,8 @@ docker-build-and-push-registry:
 	docker login -u token -p CRgAAAAAkMI2zCW2BiycXtSp2ufvWNw3pimuCJow cr.selcloud.ru/test/auth-server:v0.0.1
 	docker push cr.selcloud.ru/test/auth-server:v0.0.1
 
-# docker pull cr.selcloud.ru/test/auth-server:v0.0.1
-# docker run -p 50551:50551 cr.selcloud.ru/test/auth-server:v0.0.1
+# docker pull cr.selcloud.ru/tests/auth-server:v0.0.1
+# docker run -p 50551:50551 cr.selcloud.ru/tests/auth-server:v0.0.1
 
 ### Goose functional
 include local.env
@@ -64,3 +64,20 @@ local-migration-down:
 
 deploy-all-local:
 	docker-compose up --build -d
+
+install-minimock:
+	GOBIN=$(LOCAL_BIN) go install github.com/gojuno/minimock/v3/cmd/minimock@latest
+
+.PHONY: test
+test:
+	go clean -testcache
+	go test ./... -v
+
+.PHONY: test-coverage
+test-coverage:
+	go clean -testcache
+	-go test ./... -v -coverprofile=coverage.tmp.out -covermode count -coverpkg=github.com/markgenuine/auth/internal/service/...,github.com/markgenuine/auth/internal/api/... -count 5
+	grep -v "mocks/" coverage.tmp.out  > coverage.out
+	rm coverage.tmp.out
+	go tool cover -html=coverage.out -o coverage.html
+	go tool cover -func=./coverage.out | grep "total";
