@@ -7,8 +7,8 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
-	"github.com/markgenuine/auth/internal/client/db"
 	modelRepo "github.com/markgenuine/auth/internal/repository/auth/model"
+	"github.com/markgenuine/platform_common/pkg/db"
 )
 
 func (r *repo) Get(ctx context.Context, id int64) (*modelRepo.User, error) {

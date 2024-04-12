@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/markgenuine/auth/internal/client/db"
 	"github.com/markgenuine/auth/internal/model"
+	"github.com/markgenuine/platform_common/pkg/db"
 )
 
 func (r *repo) Create(ctx context.Context, user *model.UserCreate) (int64, error) {

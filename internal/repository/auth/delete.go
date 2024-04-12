@@ -5,7 +5,7 @@ import (
 	"log"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/markgenuine/auth/internal/client/db"
+	"github.com/markgenuine/platform_common/pkg/db"
 )
 
 func (r *repo) Delete(ctx context.Context, id int64) error {
