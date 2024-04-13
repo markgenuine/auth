@@ -56,8 +56,6 @@ func TestGet(t *testing.T) {
 		response = converter.GetToServiceFromRepo(outputData)
 	)
 
-	defer t.Cleanup(mc.Finish)
-
 	tests := []struct {
 		name               string
 		args               args

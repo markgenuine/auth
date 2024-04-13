@@ -51,8 +51,6 @@ func TestCreate(t *testing.T) {
 		response = &auth_v1.CreateResponse{Id: int64(userID)}
 	)
 
-	defer t.Cleanup(mc.Finish)
-
 	tests := []struct {
 		name            string
 		args            args

@@ -32,8 +32,6 @@ func TestDelete(t *testing.T) {
 		request = int64(userID)
 	)
 
-	defer t.Cleanup(mc.Finish)
-
 	tests := []struct {
 		name               string
 		args               args

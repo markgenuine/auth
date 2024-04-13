@@ -1,4 +1,4 @@
-package authService
+package authservice
 
 import (
 	"github.com/markgenuine/auth/internal/repository"
@@ -16,17 +16,4 @@ func NewService(userRepository repository.UserRepository) *service {
 	return &service{
 		userRepository: userRepository,
 	}
-}
-
-func NewMockService(deps ...interface{}) *service {
-	srv := service{}
-
-	for _, v := range deps {
-		switch s := v.(type) {
-		case repository.UserRepository:
-			srv.userRepository = s
-		}
-	}
-
-	return &srv
 }

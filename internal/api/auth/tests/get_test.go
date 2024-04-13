@@ -59,8 +59,6 @@ func TestGet(t *testing.T) {
 		response = converter.GetToUserFromService(outputData)
 	)
 
-	defer t.Cleanup(mc.Finish)
-
 	tests := []struct {
 		name            string
 		args            args
@@ -90,7 +88,7 @@ func TestGet(t *testing.T) {
 			},
 			want: nil,
 			err:  serviceErr,
-			authServiceMock: func(ms *minimock.Controller) service.AuthService {
+			authServiceMock: func(mc *minimock.Controller) service.AuthService {
 				mock := serviceMock.NewAuthServiceMock(mc)
 				mock.GetMock.Expect(ctx, int64(userID)).Return(nil, serviceErr)
 				return mock
