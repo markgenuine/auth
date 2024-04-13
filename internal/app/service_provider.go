@@ -5,24 +5,22 @@ import (
 	"log"
 
 	"github.com/markgenuine/auth/internal/api/auth"
-	"github.com/markgenuine/auth/internal/client/db"
-	"github.com/markgenuine/auth/internal/client/db/pg"
-	"github.com/markgenuine/auth/internal/client/db/transaction"
-	"github.com/markgenuine/auth/internal/closer"
 	"github.com/markgenuine/auth/internal/config"
 	"github.com/markgenuine/auth/internal/config/env"
 	"github.com/markgenuine/auth/internal/repository"
 	userRepo "github.com/markgenuine/auth/internal/repository/auth"
 	"github.com/markgenuine/auth/internal/service"
 	userService "github.com/markgenuine/auth/internal/service/auth_v1"
+	"github.com/markgenuine/platform_common/pkg/closer"
+	"github.com/markgenuine/platform_common/pkg/db"
+	"github.com/markgenuine/platform_common/pkg/db/pg"
 )
 
 type serviceProvider struct {
 	pgConfig   config.PGConfig
 	grpcConfig config.GRPCConfig
 
-	dbClient  db.Client
-	txManager db.TxManager
+	dbClient db.Client
 
 	userRepository repository.UserRepository
 	authService    service.AuthService
@@ -76,14 +74,6 @@ func (s *serviceProvider) DBClient(ctx context.Context) db.Client {
 	return s.dbClient
 }
 
-func (s *serviceProvider) TxManager(ctx context.Context) db.TxManager {
-	if s.txManager == nil {
-		s.txManager = transaction.NewTransactionManager(s.DBClient(ctx).DB())
-	}
-
-	return s.txManager
-}
-
 func (s *serviceProvider) UserRepository(ctx context.Context) repository.UserRepository {
 	if s.userRepository == nil {
 		s.userRepository = userRepo.NewRepository(s.DBClient(ctx))
@@ -94,7 +84,7 @@ func (s *serviceProvider) UserRepository(ctx context.Context) repository.UserRep
 
 func (s *serviceProvider) AuthService(ctx context.Context) service.AuthService {
 	if s.authService == nil {
-		s.authService = userService.NewService(s.UserRepository(ctx), s.TxManager(ctx))
+		s.authService = userService.NewService(s.UserRepository(ctx))
 	}
 
 	return s.authService

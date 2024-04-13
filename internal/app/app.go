@@ -6,9 +6,9 @@ import (
 	"log"
 	"net"
 
-	"github.com/markgenuine/auth/internal/closer"
 	"github.com/markgenuine/auth/internal/config"
 	desc "github.com/markgenuine/auth/pkg/auth_v1"
+	"github.com/markgenuine/platform_common/pkg/closer"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"

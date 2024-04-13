@@ -2,8 +2,8 @@ package auth
 
 import (
 	"github.com/Masterminds/squirrel"
-	"github.com/markgenuine/auth/internal/client/db"
 	"github.com/markgenuine/auth/internal/repository"
+	"github.com/markgenuine/platform_common/pkg/db"
 )
 
 const (
