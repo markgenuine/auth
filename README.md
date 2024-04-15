@@ -1,1 +1,1 @@
-# microservices_course_chat_auth
+# Auth service
